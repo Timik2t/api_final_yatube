@@ -53,20 +53,13 @@ class FollowSerializer(serializers.ModelSerializer):
         fields = ('user', 'following')
         validators = [
             UniqueTogetherValidator(
-                queryset=User.objects.all(),
+                queryset=Follow.objects.all(),
                 fields=['user', 'following'],
                 message=DOUBLE_FOLLOW
             )
         ]
 
-    def validate(self, data):
-        user = self.context['request'].user
-        following = data['following']
-        if user == following:
+    def validate_following(self, value):
+        if self.context['request'].user == value:
             raise serializers.ValidationError(SELF_FOLLOW)
-        if Follow.objects.filter(
-            user=User.objects.get(username=user),
-            following=User.objects.get(username=following)
-        ).exists():
-            raise serializers.ValidationError(DOUBLE_FOLLOW)
-        return data
+        return value
