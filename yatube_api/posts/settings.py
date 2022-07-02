@@ -1,1 +1,0 @@
-LIMIT_STR_TEXT = 15

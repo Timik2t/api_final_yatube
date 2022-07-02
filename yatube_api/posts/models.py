@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from .settings import LIMIT_STR_TEXT
 
 User = get_user_model()
 
@@ -21,7 +20,7 @@ class Group(models.Model):
 
 class Post(models.Model):
     DISPLAY = (
-        '{text:.{LIMIT_STR_TEXT}}, '
+        '{text:.15}, '
         '{author}, '
         '{group}'
     )
@@ -53,7 +52,6 @@ class Post(models.Model):
     def __str__(self):
         return (self.DISPLAY.format(
             text=self.text,
-            LIMIT_STR_TEXT=LIMIT_STR_TEXT,
             author=self.author.username,
             group=self.group
         ))
@@ -66,7 +64,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     DISPLAY = (
-        '{text:.{LIMIT_STR_TEXT}}, '
+        '{text:.15}, '
         '{author}'
     )
     text = models.TextField(verbose_name='Комментарий')
@@ -90,7 +88,6 @@ class Comment(models.Model):
     def __str__(self):
         return (self.DISPLAY.format(
             text=self.text,
-            LIMIT_STR_TEXT=LIMIT_STR_TEXT,
             author=self.author.username,
         ))
 
