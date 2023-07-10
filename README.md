@@ -105,4 +105,4 @@ API для Yatube позволяет выполнять следующие оп�
 | `Authorization`      | `string` | Token <YOUR_TOKEN> |
 
 ### Автор
-[Tim](https://github.com/Timik2t)
+[Тимур](https://github.com/Timik2t)
